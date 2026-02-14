@@ -38,11 +38,11 @@ button:hover{transform:scale(1.05);}
 <div id="loader">Finding your cute girlfriend... 0%</div>
 
 <div id="result">
-  <img src="https://files.catbox.moe/tv9aeq.jpeg" alt="Single Funny">
+  <img id="funnyImg" src="https://files.catbox.moe/tv9aeq.jpeg" alt="Single Funny">
   <h2>TU SINGLE MAAR B##DWE 😆😚</h2>
 </div>
 
-<audio id="bgSong" loop>
+<audio id="bgSong" loop autoplay>
   <source src="https://files.catbox.moe/zg3ygy.mp3" type="audio/mpeg">
 </audio>
 
@@ -51,8 +51,10 @@ button:hover{transform:scale(1.05);}
 </audio>
 
 <script>
-// Start background song automatically
-window.onload = () => { document.getElementById('bgSong').play().catch(()=>{}); }
+// Play background song after user interaction for mobile
+document.body.addEventListener('click', ()=>{ 
+  document.getElementById('bgSong').play().catch(()=>{}); 
+},{once:true});
 
 document.getElementById('searchBtn').addEventListener('click', ()=>{
   let loader = document.getElementById('loader');
@@ -61,9 +63,10 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
 
   loader.style.display='block';
   result.style.display='none';
-  let percent=0;
+  
   searchSong.play().catch(()=>{});
 
+  let percent=0;
   let interval = setInterval(()=>{
     percent += Math.floor(Math.random()*5)+1;
     if(percent>100) percent=100;
