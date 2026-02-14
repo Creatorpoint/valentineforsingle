@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Single Girlfriend Finder 😆</title>
+<title>Funny Single Finder 😆</title>
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 body{
@@ -12,37 +12,28 @@ body{
   background: linear-gradient(135deg,#ff9a9e,#ffc0cb);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   height:100vh;overflow:hidden;text-align:center;color:#333;
+  position:relative;
 }
 h1{
   font-family:'Fredoka One',cursive;font-size:2.8rem;color:#fff;
-  text-shadow:0 0 15px #ff6b81,0 0 30px #ff92a3;margin-bottom:30px;
+  text-shadow:0 0 15px #ff6b81,0 0 30px #ff92a3;margin-bottom:20px;
 }
 input,button{
   padding:12px 20px;font-size:1.2rem;border-radius:12px;border:none;margin:5px;
   outline:none;
 }
-input{
-  width:250px;max-width:80%;box-shadow:0 0 10px #ff92a3 inset;
-}
+input{width:250px;max-width:80%;box-shadow:0 0 10px #ff92a3 inset;}
 button{
   background:#ff6b81;color:#fff;cursor:pointer;
-  box-shadow:0 0 15px #ff92a3;
-  transition:0.3s;
+  box-shadow:0 0 15px #ff92a3;transition:0.3s;
 }
 button:hover{transform:scale(1.05);}
-#loader{
-  margin-top:20px;font-size:1.3rem;display:none;
-  color:#fff;text-shadow:0 0 15px #ff92a3;
-}
-#result{
-  margin-top:20px;display:none;
-  padding:20px;border-radius:20px;
-  background:rgba(255,182,193,0.9);
-  box-shadow:0 0 25px #ff6b81,0 0 50px #ff92a3;
-}
-#result img{
-  max-width:90%;border-radius:20px;box-shadow:0 0 25px #ff6b81;
-}
+#loader{margin-top:20px;font-size:1.3rem;display:none;color:#fff;text-shadow:0 0 15px #ff92a3;}
+#result{margin-top:20px;display:none;padding:20px;border-radius:20px;background:rgba(255,182,193,0.9);box-shadow:0 0 25px #ff6b81,0 0 50px #ff92a3;}
+#result img{max-width:90%;border-radius:20px;box-shadow:0 0 25px #ff6b81;margin:10px 0;}
+#popup{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.95);padding:30px;border-radius:20px;box-shadow:0 0 25px #ff6b81;z-index:10;}
+#popup button{margin:10px;}
+#funnyWord{display:none;font-size:2rem;margin-top:20px;color:#ff3d6b;text-shadow:0 0 15px #ff92a3;}
 </style>
 </head>
 <body>
@@ -54,17 +45,23 @@ button:hover{transform:scale(1.05);}
 <div id="loader">Finding your cute girlfriend... 0%</div>
 
 <div id="result">
-  <img id="funnyImg" src="https://drive.google.com/uc?export=download&id=1T6cYOYn-7nl_tLvWR6n2mr_i_XwllcgQ" alt="Single Funny">
-  <h2>TU SINGLE MAAR B##DWE 😆😚</h2>
+  <img id="img1" src="https://image2url.com/r2/default/files/1771042201928-64113991-4cfc-47b1-8d8e-ab0ed681f177.jpeg" alt="Result1">
+  <img id="img2" src="https://image2url.com/r2/default/files/1771042221584-03235cec-f41e-4f14-a173-37f0cbca8919.jpeg" alt="Result2">
 </div>
 
-<!-- Audio Files -->
+<div id="popup">
+  <h2>Ye thik hai?</h2>
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
+  <div id="funnyWord">TU SINGLE MAAR B##DWE 😆😚</div>
+</div>
+
 <audio id="bgSong" loop autoplay>
-  <source src="https://drive.google.com/uc?export=download&id=18NW1bjeG7ZnG9ZFFEq6GoXR_H5v9Cn0K" type="audio/mpeg">
+  <source src="https://image2url.com/r2/default/audio/1771042144831-cab17f3e-0eed-4baf-815c-bcfc4aa72bd4.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="searchSong">
-  <source src="https://drive.google.com/uc?export=download&id=1JZwC3BDtTl6HSEDynr-nKNCX7RsgBD1i" type="audio/mpeg">
+  <source src="https://image2url.com/r2/default/audio/1771042109266-99595938-624d-4779-98c8-4e24cf22f01d.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -74,17 +71,19 @@ document.body.addEventListener('click', ()=>{
 },{once:true});
 
 document.getElementById('searchBtn').addEventListener('click', ()=>{
-  let loader = document.getElementById('loader');
-  let result = document.getElementById('result');
-  let searchSong = document.getElementById('searchSong');
+  const loader = document.getElementById('loader');
+  const result = document.getElementById('result');
+  const searchSong = document.getElementById('searchSong');
+  const popup = document.getElementById('popup');
 
   loader.style.display='block';
   result.style.display='none';
-  
+  popup.style.display='none';
+
   searchSong.play().catch(()=>{});
 
   let percent=0;
-  let interval = setInterval(()=>{
+  const interval = setInterval(()=>{
     percent += Math.floor(Math.random()*5)+1;
     if(percent>100) percent=100;
     loader.innerText=`Finding your cute girlfriend... ${percent}%`;
@@ -93,12 +92,27 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
       setTimeout(()=>{
         loader.style.display='none';
         result.style.display='block';
-        // Play funny result sound
-        searchSong.currentTime=0;
-        searchSong.play().catch(()=>{});
+        searchSong.currentTime=0; searchSong.play().catch(()=>{});
+        // Show popup after 1s
+        setTimeout(()=>{popup.style.display='block';},1000);
       },500);
     }
   },300);
+});
+
+document.getElementById('yesBtn').addEventListener('click',()=>{
+  const funnyWord = document.getElementById('funnyWord');
+  const searchSong = document.getElementById('searchSong');
+  funnyWord.style.display='block';
+  searchSong.currentTime=0; searchSong.play().catch(()=>{});
+});
+
+document.getElementById('noBtn').addEventListener('click',()=>{
+  const funnyWord = document.getElementById('funnyWord');
+  const searchSong = document.getElementById('searchSong');
+  funnyWord.style.display='block';
+  funnyWord.innerText='TU ABHI BHI SINGLE 😆😂';
+  searchSong.currentTime=0; searchSong.play().catch(()=>{});
 });
 </script>
 
