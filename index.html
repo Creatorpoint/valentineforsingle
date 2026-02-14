@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Single Girlfriend Finder 😆</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;padding:0;
+  font-family:'Comic Neue', sans-serif;
+  background: linear-gradient(120deg,#ff9a9e,#fecfef);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100vh;overflow:hidden;text-align:center;color:#333;
+}
+h1{font-family:'Fredoka One',cursive;font-size:2.5rem;color:#fff;text-shadow:0 0 15px #ff6b81,0 0 30px #ff92a3;}
+input,button{
+  padding:10px 20px;font-size:1.1rem;border-radius:10px;border:none;margin:5px;
+  outline:none;
+}
+button{
+  background:#ff6b81;color:#fff;cursor:pointer;
+  box-shadow:0 0 15px #ff92a3;
+  transition:0.3s;
+}
+button:hover{transform:scale(1.05);}
+#loader{margin-top:20px;font-size:1.2rem;display:none;}
+#result{margin-top:20px;display:none;}
+#result img{max-width:90%;border-radius:20px;box-shadow:0 0 25px #ff6b81;}
+</style>
+</head>
+<body>
+
+<h1>Single Girlfriend Finder 😆</h1>
+<input type="text" id="yourName" placeholder="Enter your name">
+<button id="searchBtn">Search Girlfriend 😚</button>
+
+<div id="loader">Finding your cute girlfriend... 0%</div>
+
+<div id="result">
+  <img src="https://files.catbox.moe/tv9aeq.jpeg" alt="Single Funny">
+  <h2>TU SINGLE MAAR B##DWE 😆😚</h2>
+</div>
+
+<audio id="bgSong" loop>
+  <source src="https://files.catbox.moe/zg3ygy.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="searchSong">
+  <source src="https://files.catbox.moe/imxvev.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Start background song automatically
+window.onload = () => { document.getElementById('bgSong').play().catch(()=>{}); }
+
+document.getElementById('searchBtn').addEventListener('click', ()=>{
+  let loader = document.getElementById('loader');
+  let result = document.getElementById('result');
+  let searchSong = document.getElementById('searchSong');
+
+  loader.style.display='block';
+  result.style.display='none';
+  let percent=0;
+  searchSong.play().catch(()=>{});
+
+  let interval = setInterval(()=>{
+    percent += Math.floor(Math.random()*5)+1;
+    if(percent>100) percent=100;
+    loader.innerText=`Finding your cute girlfriend... ${percent}%`;
+    if(percent>=100){
+      clearInterval(interval);
+      setTimeout(()=>{
+        loader.style.display='none';
+        result.style.display='block';
+      },500);
+    }
+  },300);
+});
+</script>
+
+</body>
+</html>
